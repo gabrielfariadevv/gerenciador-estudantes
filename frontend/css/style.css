@@ -6,4 +6,45 @@
     font-family: cursive;
 }
 
+.custom-checkbox .form-check-input[type="checkbox"]:checked + .form-check-label:before {
+    background-color: #000;
+}
 
+.custom-checkbox .form-check-label:before {
+    border: 2px solid #000;
+}
+
+.mt-4{
+    margin-left: 1.5em;
+}
+
+.me-2 {
+    margin-right: 1.5rem !important;
+}
+
+
+.btn-group-sm > .btn, .btn-sm {
+    --bs-btn-padding-y: 0.25rem;
+    --bs-btn-padding-x: 0.6rem;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-border-radius: var(--bs-border-radius-sm);
+}
+
+.mt-2 {
+    margin-top: 1rem !important;
+}
+
+.custom-card-width {
+    width: 130%;
+}
+
+
+.btn-primary {
+    --bs-btn-bg: #B273CD;
+    --bs-btn-border-color:#B273CD;
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: #B273CD;
+    --bs-btn-active-color: #B273CD;
+    --bs-btn-active-bg: #B273CD;
+    --bs-btn-active-border-color: #B273CD;
+}

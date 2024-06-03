@@ -1,19 +1,20 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById('add-student-form');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const container = document.getElementById('student-cards-container');
+    const form = document.getElementById("add-student-form");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const container = document.getElementById("student-cards-container");
+    const addStudentModal = new bootstrap.Modal(document.getElementById("addStudentModal"));
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
 
         const name = nameInput.value;
         const email = emailInput.value;
 
-        fetch('http://localhost:8080/students/post', {
-            method: 'POST',
+        fetch("http://localhost:8080/students/post", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({ name: name, email: email })
         })
@@ -21,14 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(student => {
             addStudentCard(student);
             form.reset();
+            addStudentModal.hide();
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to add student. Please try again later.');
+            console.error("Error:", error);
+            console.log("Failed to add student.");
         });
     });
 
-    fetch('http://localhost:8080/students')
+    fetch("http://localhost:8080/students")
         .then(response => response.json())
         .then(data => {
             data.forEach(student => {
@@ -36,13 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to load students. Please try again later.');
+            console.error("Error:", error);
+            console.log("Failed to load this endpoint");
         });
 
     function addStudentCard(student) {
-        const card = document.createElement('div');
-        card.className = 'col-md-4';
+        const card = document.createElement("div");
+        card.className = "col-md-4";
 
         card.innerHTML = `
             <div class="card" style="width: 18rem;">
@@ -58,27 +60,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         container.appendChild(card);
         
-        card.querySelector('.remove-student').addEventListener('click', function() {
-            const studentId = this.getAttribute('data-id');
+        card.querySelector(".remove-student").addEventListener("click", function() {
+            const studentId = this.getAttribute("data-id");
             removeStudent(studentId, card);
         });
     }
 
     function removeStudent(studentId, cardElement) {
         fetch(`http://localhost:8080/students/${studentId}`, {
-            method: 'DELETE',
+            method: "DELETE",
         })
         .then(response => {
             if (response.ok) {
                 cardElement.remove();
             } else {
-                console.error('Failed to delete student:', response.statusText);
-                alert('Failed to delete student. Please try again later.');
+                console.error("Failed to delete student:", response.statusText);
+                console.log("Failed to delete student.");
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to delete student. Please try again later.');
+            console.error("Error:", error);
+            console.log("Failed to delete student.");
         });
     }
 });

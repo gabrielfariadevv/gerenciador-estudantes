@@ -1,6 +1,7 @@
 package com.course.management.controller;
 
 import com.course.management.model.Course;
+import com.course.management.model.Student;
 import com.course.management.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,18 +26,21 @@ public class CourseController {
 
     @PostMapping("/courses/post")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<Course> saveCourse(
-            @RequestBody Course course) {
+    public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
+        List<Student> students = course.getStudents();
+        if (students != null) {
+            students.forEach(student -> student.getCourses().remove(course));
+            students.forEach(student -> student.getCourses().add(course));
+        }
         Course savedCourse = courseRepository.save(course);
-        return new ResponseEntity<Course>(
-                savedCourse,
-                HttpStatus.CREATED);
+        return new ResponseEntity<Course>(savedCourse, HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/courses/{id}")
     public ResponseEntity<Void> removeCourse(
             @PathVariable("id") long id){
-        courseRepository.deleteById(id);
+        courseRepository.deleteById((int) id);
         return new ResponseEntity<>(
                 HttpStatus.OK
         );

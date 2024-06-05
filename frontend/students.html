@@ -45,13 +45,19 @@
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="course-select" class="form-label">Cursos:</label>
+                                <select id="course-select" class="form-select" multiple required>
+                                    <option value="">Selecione um ou mais cursos</option>
+                                </select>
+                            </div>
                             <button type="submit" class="btn btn-primary">Adicionar estudante</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <div class="row row-cols-1 row-cols-md-4 g-4" id="student-cards-container">
         </div>
     </div>

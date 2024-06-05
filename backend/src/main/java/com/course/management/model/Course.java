@@ -1,23 +1,29 @@
 package com.course.management.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String name;
+    private String period;
 
-    public long getId() {
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students;
+
+    public Course() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -37,5 +43,14 @@ public class Course {
         this.period = period;
     }
 
-    private String period;
+    public List<Student> getStudents() {
+        if (this.students == null) {
+            this.students = new ArrayList<>();
+        }
+        return this.students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

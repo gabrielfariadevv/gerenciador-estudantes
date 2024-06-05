@@ -1,26 +1,14 @@
-package com.course.management.model;
+package com.course.management.dto;
 
-import jakarta.persistence.*;
+import com.course.management.model.Course;
+
 import java.util.List;
 
-@Entity
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StudentDto {
     private int id;
     private String name;
     private String email;
-
-    @ManyToMany
-    @JoinTable(
-            name = "student_courses",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
     private List<Course> courses;
-
-    public Student() {
-    }
 
     public int getId() {
         return id;

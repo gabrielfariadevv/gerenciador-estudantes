@@ -34,11 +34,6 @@
     margin-top: 1rem !important;
 }
 
-.custom-card-width {
-    width: 130%;
-}
-
-
 .btn-primary {
     --bs-btn-bg: #B273CD;
     --bs-btn-border-color:#B273CD;

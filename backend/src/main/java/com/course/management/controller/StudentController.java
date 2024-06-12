@@ -29,7 +29,6 @@ public class StudentController {
         if (!existingStudents.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Este aluno já está cadastrado neste curso.");
         }
-
         // Salva o aluno
         Student createdStudent = studentRepository.save(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent);

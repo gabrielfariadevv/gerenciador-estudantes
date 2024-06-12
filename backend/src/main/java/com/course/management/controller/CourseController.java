@@ -30,12 +30,13 @@ public class CourseController {
 
     @PostMapping("/courses/post")
     @CrossOrigin(origins = "http://localhost:8081")
-    public ResponseEntity<Course> saveCourse(
-            @RequestBody Course course) {
+    public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
+        if (course.getName() == null || course.getName().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Course savedCourse = courseRepository.save(course);
-        return new ResponseEntity<>(
-                savedCourse,
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/courses/{id}")

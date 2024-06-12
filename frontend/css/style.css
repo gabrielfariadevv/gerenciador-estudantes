@@ -43,3 +43,23 @@
     --bs-btn-active-bg: #B273CD;
     --bs-btn-active-border-color: #B273CD;
 }
+
+.card {
+    height: 200px; /* Altura fixa para os cards */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adiciona "..." no final do texto caso ultrapasse o espaço */
+    -webkit-line-clamp: 3; /* Limita o texto a 3 linhas */
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    font-size: 14px; /* Tamanho do texto */
+}

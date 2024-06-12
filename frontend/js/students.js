@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             addStudentCard(student);
             form.reset();
             addStudentModal.hide();
+            loadStudents(); // Atualiza a lista de estudantes automaticamente
         })
         .catch(error => {
             console.error("Error:", error);
@@ -93,18 +94,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para adicionar um card de estudante no container
     function addStudentCard(student) {
         const card = document.createElement("div");
-        card.className = "col-md-4";
+        card.className = "col-md-4 mb-3"; // Set card size to col-md-4 and add margin-bottom for spacing
 
         const courseName = student.course ? student.course.name : "Nenhum curso cadastrado";
 
         card.innerHTML = `
-            <div class="card" style="width: 18rem;">
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${student.name}</h5>
                     <p class="card-text">Email: ${student.email}</p>
                     <p class="card-text">Curso: ${courseName}</p>
                     <p class="card-text">ID: ${student.id}</p>
-                    <button class="btn btn-danger btn-sm remove-student" data-id="${student.id}">X</button>
+                    <button class="btn btn-danger btn-sm remove-student" data-id="${student.id}" style="position: absolute; top: 5px; right: 5px;">X</button>
                 </div>
             </div>
         `;

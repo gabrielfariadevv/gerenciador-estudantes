@@ -1,6 +1,5 @@
 package com.course.management.controller;
 
-import com.course.management.model.Course;
 import com.course.management.model.Student;
 import com.course.management.repository.CourseRepository;
 import com.course.management.repository.StudentRepository;
@@ -10,17 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
 public class StudentController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentRepository studentRepository; // Repositório de estudantes
 
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseRepository courseRepository; // Repositório de cursos
 
     @PostMapping("/students")
     public ResponseEntity<?> addStudent(@RequestBody Student student) {
@@ -31,17 +29,18 @@ public class StudentController {
         }
         // Salva o aluno
         Student createdStudent = studentRepository.save(student);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent); // Retorna o aluno criado com status CREATED
     }
 
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> students = studentRepository.findAll();
-        return ResponseEntity.ok(students);
+        List<Student> students = studentRepository.findAll(); // Busca todos os estudantes
+        return ResponseEntity.ok(students); // Retorna a lista de estudantes
     }
+
     @DeleteMapping("/students/{id}")
     public ResponseEntity<Void> removeUser(@PathVariable("id") long id) {
-        studentRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        studentRepository.deleteById(id); // Deleta o estudante pelo ID
+        return new ResponseEntity<>(HttpStatus.OK); // Retorna sucesso
     }
 }

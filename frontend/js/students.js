@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Elementos do DOM relacionados ao formulário de adicionar estudante
     const form = document.getElementById("add-student-form");
     const nameInput = document.getElementById("name");
     const emailInput = document.getElementById("email");
@@ -17,18 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             })
             .catch(error => {
-                console.error("Error:", error);
-                console.log("Failed to load students.");
+                console.error("Erro:", error);
+                console.log("Falha ao carregar estudantes.");
             });
     }
 
-    // Fetch courses and populate the dropdown
+    // Busca cursos e popula o dropdown
     fetch("http://localhost:8080/courses")
         .then(response => response.json())
         .then(courses => {
             courses.forEach(course => {
-                if (course.name !== "No Course Assigned") {
-                    // Add courses to dropdown
+                if (course.name !== "Nenhum curso cadastrado") {
+                    // Adiciona cursos ao dropdown
                     const option = document.createElement("option");
                     option.value = course.id;
                     option.textContent = course.name;
@@ -37,8 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         })
         .catch(error => {
-            console.error("Error:", error);
-            console.log("Failed to load courses.");
+            console.error("Erro:", error);
+            console.log("Falha ao carregar cursos.");
         });
 
     // Adiciona o evento de submit no formulário
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error("Failed to add student.");
+                throw new Error("Falha ao adicionar estudante.");
             }
             return response.json();
         })
@@ -74,8 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
             loadStudents(); // Atualiza a lista de estudantes automaticamente
         })
         .catch(error => {
-            console.error("Error:", error);
-            console.log("Failed to add student.");
+            console.error("Erro:", error);
+            console.log("Falha ao adicionar estudante.");
             showAlert("Falha ao adicionar aluno, Este aluno já está cadastrado neste curso!");
         });
     });
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Função para adicionar um card de estudante no container
     function addStudentCard(student) {
         const card = document.createElement("div");
-        card.className = "col-md-4 mb-3"; // Set card size to col-md-4 and add margin-bottom for spacing
+        card.className = "col-md-4 mb-3"; // Define o tamanho do card para col-md-4 e adiciona margem inferior
 
         const courseName = student.course ? student.course.name : "Nenhum curso cadastrado";
 
@@ -127,13 +128,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 cardElement.remove();
             } else {
-                console.error("Failed to delete student:", response.statusText);
-                console.log("Failed to delete student.");
+                console.error("Falha ao deletar estudante:", response.statusText);
+                console.log("Falha ao deletar estudante.");
             }
         })
         .catch(error => {
-            console.error("Error:", error);
-            console.log("Failed to delete student.");
+            console.error("Erro:", error);
+            console.log("Falha ao deletar estudante.");
         });
     }
 

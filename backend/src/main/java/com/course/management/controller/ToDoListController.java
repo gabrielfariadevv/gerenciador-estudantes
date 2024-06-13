@@ -14,25 +14,25 @@ import java.util.List;
 public class ToDoListController {
 
     @Autowired
-    private ToDoListRepository toDoListRepository;
+    private ToDoListRepository toDoListRepository; // Repositório de tarefas
 
     @GetMapping("/list")
     public ResponseEntity<List<ToDoList>> getTasks() {
-        List<ToDoList> tasks = toDoListRepository.findAll();
-        return ResponseEntity.ok(tasks);
+        List<ToDoList> tasks = toDoListRepository.findAll(); // Busca todas as tarefas
+        return ResponseEntity.ok(tasks); // Retorna a lista de tarefas
     }
 
     @PostMapping("/list")
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<List<ToDoList>> saveTask(@RequestBody ToDoList toDoList) {
-        ToDoList savedToDo = toDoListRepository.save(toDoList);
+        ToDoList savedToDo = toDoListRepository.save(toDoList); // Salva a nova tarefa
         List<ToDoList> updatedTasks = toDoListRepository.findAll(); // Retorna a lista atualizada
-        return new ResponseEntity<>(updatedTasks, HttpStatus.CREATED);
+        return new ResponseEntity<>(updatedTasks, HttpStatus.CREATED); // Retorna a lista atualizada com status CREATED
     }
 
     @DeleteMapping("/list/{id}")
     public ResponseEntity<Void> removeTask(@PathVariable("id") long id) {
-        toDoListRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        toDoListRepository.deleteById(id); // Deleta a tarefa pelo ID
+        return new ResponseEntity<>(HttpStatus.OK); // Retorna sucesso
     }
 }

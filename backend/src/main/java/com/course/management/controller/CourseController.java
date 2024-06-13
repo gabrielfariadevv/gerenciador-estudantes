@@ -17,14 +17,14 @@ import java.util.Optional;
 public class CourseController {
 
     @Autowired
-    private CourseRepository courseRepository;
+    private CourseRepository courseRepository; // Repositório de cursos
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentRepository studentRepository; // Repositório de estudantes
 
     @GetMapping("/courses")
     public ResponseEntity<List<Course>> getCourses() {
-        List<Course> courses = courseRepository.findAll();
+        List<Course> courses = courseRepository.findAll(); // Busca todos os cursos
         return ResponseEntity.ok(courses);
     }
 
@@ -32,27 +32,27 @@ public class CourseController {
     @CrossOrigin(origins = "http://localhost:8081")
     public ResponseEntity<Course> saveCourse(@RequestBody Course course) {
         if (course.getName() == null || course.getName().isEmpty()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build(); // Retorna erro se o nome do curso for inválido
         }
 
-        Course savedCourse = courseRepository.save(course);
-        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED);
+        Course savedCourse = courseRepository.save(course); // Salva o curso
+        return new ResponseEntity<>(savedCourse, HttpStatus.CREATED); // Retorna o curso salvo com status CREATED
     }
 
     @DeleteMapping("/courses/{id}")
     public ResponseEntity<Void> removeCourse(
             @PathVariable("id") long id){
-        Optional<Course> courseOptional = courseRepository.findById(id);
+        Optional<Course> courseOptional = courseRepository.findById(id); // Busca o curso pelo ID
         if (courseOptional.isPresent()) {
             Course course = courseOptional.get();
-            List<Student> students = studentRepository.findByCourse(course);
+            List<Student> students = studentRepository.findByCourse(course); // Verifica se há estudantes no curso
             if (!students.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Retorna erro se o curso tem estudantes
             }
-            courseRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+            courseRepository.deleteById(id); // Deleta o curso
+            return ResponseEntity.ok().build(); // Retorna sucesso
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build(); // Retorna erro se o curso não for encontrado
         }
     }
 }
